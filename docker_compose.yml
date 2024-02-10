@@ -1,0 +1,21 @@
+version: "3"
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.6
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - .:/keys
+    command:
+      - "--verbose"
+      - "start"
+    environment:
+      - KC_HTTP_ENABLED=true
+      - KC_HTTPS_CERTIFICATE_FILE=/keys/certificate.pem
+      - KC_HTTPS_CERTIFICATE_KEY_FILE=/keys/key.pem
+      - KC_HOSTNAME=test.keycloak.org
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT_HTTPS=false
